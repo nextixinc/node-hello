@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: helloworldjayr 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helloworldjayr
+  template:
+    metadata:
+      labels:
+        app: helloworldjayr 
+    spec:
+      containers:
+        - name: helloworldjayr 
+          image: ovcoderegistry.azurecr.io/helloworldjayr
+          ports:
+          - containerPort: 3000
