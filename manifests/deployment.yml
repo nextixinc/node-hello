@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: hellowromeo 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hellowromeo
+  template:
+    metadata:
+      labels:
+        app: hellowromeo 
+    spec:
+      containers:
+        - name: hellowromeo 
+          image: ovcoderegistry.azurecr.io/hellowromeo
+          ports:
+          - containerPort: 3000
