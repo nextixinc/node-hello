@@ -5,6 +5,7 @@ RUN mkdir -p /usr/app/src
 
 # Copy source code
 #COPY src /usr/app/src
+COPY index.js /usr/app
 COPY package.json /usr/app
 COPY package-lock.json /usr/app
 
