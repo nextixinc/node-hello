@@ -3,8 +3,11 @@ kind: Service
 metadata:
     name: hellowromeo
 spec:
-    type: LoadBalancer
+    type: ClusterIP
     ports:
     - port: 3000 
+      targetPort: 3000
+      protocol: TCP
+      name: http
     selector:
         app: hellowromeo
