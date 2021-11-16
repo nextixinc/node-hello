@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: hellowromeo
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 3000 
+    selector:
+        app: hellowromeo
