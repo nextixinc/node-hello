@@ -15,8 +15,11 @@ variables:
   imageRepository: 'helloworldjayr'
   containerRegistry: 'ovcoderegistry.azurecr.io'
   dockerfilePath: '**/Dockerfile'
-  tag: '$(Build.BuildId)'
-  imagePullSecret: 'ovcoderegistry5619902e-auth'
+  #tag: '$(Build.BuildId)'
+  major-minor: '1.0'
+  revision: $[ counter(variables['major-minor'],0) ]
+  tag: $(major-minor).$(revision)
+  imagePullSecret: 'container-registry'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -43,37 +46,3 @@ stages:
 
     - upload: manifests
       artifact: manifests
-
-- stage: Deploy
-  displayName: Deploy stage
-  dependsOn: Build
-
-  jobs:
-  - deployment: Deploy
-    displayName: Deploy
-    pool:
-      vmImage: $(vmImageName)
-    environment: 'nextixincnodehello.sandbox'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-
-          - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
-            inputs:
-              action: deploy
-              manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.yml
-                $(Pipeline.Workspace)/manifests/service.yml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
-
