@@ -9,10 +9,10 @@ spec:
       app: helloworldjayr
 
 
-      template:
+  template:
     metadata:
       labels:
-        version: 1.0.0
+        version: 1.0.1
         api: private
         app: helloworldjayr
     spec:
@@ -22,7 +22,7 @@ spec:
         fsGroup: 1001
       containers:
         - name:  helloworldjayr
-          image: ovcoderegistry.azurecr.io/helloworldjayr:1.0.0
+          image: ovcoderegistry.azurecr.io/helloworldjayr:1.0.1
           resources:
           ports:
           - containerPort: 3000
