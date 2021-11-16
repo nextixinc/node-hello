@@ -10,13 +10,13 @@ spec:
   template:
     metadata:
       labels:
-        version: 1.0.0
+        version: 1.0.1
         api: private
         app: hellowromeo
     spec:
       containers:
         - name: hellowromeo 
-          image: ovcoderegistry.azurecr.io/hellowromeo
+          image: ovcoderegistry.azurecr.io/hellowromeo:1.0.1
           securityContext:
             runAsUser: 1001
           resources:
